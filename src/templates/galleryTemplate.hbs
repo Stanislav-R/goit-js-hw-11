@@ -1,0 +1,25 @@
+{{#each this}}
+  <li class='photo-card'>
+    <div class='image__wrapper'>
+      <img class='fetch' data-src='{{webformatURL}}' data-source='{{largeImageURL}}' alt='{{id}}' />
+    </div>
+    <div class='info'>
+      <p class='info-item'>
+        <i class='material-icons'>thumb_up</i>
+        {{likes}}
+      </p>
+      <p class='info-item'>
+        <i class='material-icons'>visibility</i>
+        {{views}}
+      </p>
+      <p class='info-item'>
+        <i class='material-icons'>comment</i>
+        {{comments}}
+      </p>
+      <p class='info-item'>
+        <i class='material-icons'>cloud_download</i>
+        {{downloads}}
+      </p>
+    </div>
+  </li>
+{{/each}}
