@@ -11,15 +11,16 @@ const imgSearch = new FetchImageApi();
 
 function onSearch(event) {
   event.preventDefault();
-  const query = event.currentTarget.elements.query.value;
+  const query = event.currentTarget.elements.query.value.trim();
   imgSearch.query = query;
+
   if (query === '') {
     Notiflix.Notify.info('Enter picture name!!!');
     return;
   }
-  imgSearch.resetPage();
-  refs.gallery.innerHTML = '';
   fetchImages();
+  refs.gallery.innerHTML = '';
+  refs.search.reset();
 }
 async function fetchImages() {
   try {
@@ -42,8 +43,10 @@ function onEntry(entries) {
   entries.forEach(entry => {
     if (entry.isIntersecting && imgSearch.query !== '') {
       imgSearch.fetchImage().then(images => {
-        if (images.length < 1) {
-          Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
+        console.log(images);
+
+        if (images.hits.length === 0) {
+          Notiflix.Notify.warning("We're sorry, but you've reached the end of search results.");
           observer.unobserve(refs.observer);
           return;
         }
