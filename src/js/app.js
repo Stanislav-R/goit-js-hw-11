@@ -43,8 +43,6 @@ function onEntry(entries) {
   entries.forEach(entry => {
     if (entry.isIntersecting && imgSearch.query !== '') {
       imgSearch.fetchImage().then(images => {
-        console.log(images);
-
         if (images.hits.length === 0) {
           Notiflix.Notify.warning("We're sorry, but you've reached the end of search results.");
           observer.unobserve(refs.observer);
