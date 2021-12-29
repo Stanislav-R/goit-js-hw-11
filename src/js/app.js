@@ -18,9 +18,10 @@ function onSearch(event) {
     Notiflix.Notify.info('Enter picture name!!!');
     return;
   }
-  fetchImages();
+
+  imgSearch.resetPage();
   refs.gallery.innerHTML = '';
-  refs.search.reset();
+  fetchImages();
 }
 async function fetchImages() {
   try {
@@ -41,7 +42,7 @@ async function fetchImages() {
 }
 function onEntry(entries) {
   entries.forEach(entry => {
-    if (entry.isIntersecting && imgSearch.query !== '') {
+    if (entry.isIntersecting && imgSearch.query !== '' && imgSearch.page !== 1) {
       imgSearch.fetchImage().then(images => {
         if (images.hits.length === 0) {
           Notiflix.Notify.warning("We're sorry, but you've reached the end of search results.");
@@ -77,5 +78,5 @@ function lazyLoad() {
   });
 }
 const observer = new IntersectionObserver(onEntry, {
-  rootMargin: '50px',
+  rootMargin: '100px',
 });
